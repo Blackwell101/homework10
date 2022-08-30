@@ -4,9 +4,10 @@ const fs = require("fs");
 const generateTeam = require("./src/page-templant");
 
 // lib modules
-const Engineer = require("./tests/Engineeer.test");
-const Intern = require("./tests/intern.test");
-const Manager = require("./tests/manager.test");
+const Engineer = require("./lib/engineer");
+const Intern = require("./lib/intern");
+const Manager = require("./lib/manager");
+const Employee = require("./lib/employee")
 
 // Array for answers to questions
 const newStaffMemberData = [];
@@ -39,7 +40,7 @@ const questions = async () => {
       ])}
 
             // if manager selected, answer these specific question
-            if (answers.role === "Manager") {
+            if (answers.role === "manager") {
                 const managerAns = inquirer
                   .prompt([
                     {
@@ -57,7 +58,7 @@ const questions = async () => {
                   newStaffMemberData.push(newManager);
 
            // if engineer selected answer these set of questions
-        } else if (answers.role === "Engineer") {
+        } else if (answers.role === "engineer") {
         const githubAns =  inquirer
           .prompt([
             {
@@ -75,7 +76,7 @@ const questions = async () => {
             newStaffMemberData.push(newEngineer);
           
         // if intern selected answer these set of questions
-      } else if (answers.role === "Intern") {
+      } else if (answers.role === "intern") {
         const internAns = inquirer
           .prompt([
             {
@@ -116,7 +117,7 @@ async function promptQuestions() {
     return createTeam();
 }  
 
-promptQuestions();
+//promptQuestions();
 
 function createTeam () {
   console.log("new guy", newStaffMemberData)
@@ -126,3 +127,5 @@ function createTeam () {
     "utf-8"
   );
 }
+
+promptQuestions();
