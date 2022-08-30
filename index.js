@@ -1,19 +1,19 @@
 // node modules
 const inquirer = require("inquirer");
 const fs = require("fs");
-const generateTeam = require("./src/page-template.js");
+const generateTeam = require("./src/page-templant");
 
 // lib modules
-const Engineer = require("./lib/Engineer");
-const Intern = require("./lib/Intern");
-const Manager = require("./lib/Manager");
+const Engineer = require("./tests/Engineeer.test");
+const Intern = require("./tests/intern.test");
+const Manager = require("./tests/manager.test");
 
 // Array for answers to questions
 const newStaffMemberData = [];
 
 // Array object questions asked in CLI to user
 const questions = async () => {
-    const answers = await inquirer
+    const answers = inquirer
       .prompt([
         {
           type: "input",
@@ -40,7 +40,7 @@ const questions = async () => {
 
             // if manager selected, answer these specific question
             if (answers.role === "Manager") {
-                const managerAns = await inquirer
+                const managerAns = inquirer
                   .prompt([
                     {
                       type: "input",
@@ -58,7 +58,7 @@ const questions = async () => {
 
            // if engineer selected answer these set of questions
         } else if (answers.role === "Engineer") {
-        const githubAns = await inquirer
+        const githubAns =  inquirer
           .prompt([
             {
               type: "input",
@@ -76,7 +76,7 @@ const questions = async () => {
           
         // if intern selected answer these set of questions
       } else if (answers.role === "Intern") {
-        const internAns = await inquirer
+        const internAns = inquirer
           .prompt([
             {
               type: "input",
@@ -97,10 +97,10 @@ const questions = async () => {
  //end of questions function
 
 async function promptQuestions() {
-  await questions()
+   questions()
     
   
-  const addMemberAns = await inquirer
+  const addMemberAns = inquirer
     .prompt([
       {
         name:'addMember',
@@ -121,7 +121,7 @@ promptQuestions();
 function createTeam () {
   console.log("new guy", newStaffMemberData)
   fs.writeFileSync(
-    "./output/index.html",
+    "./dist/index.html",
     generateTeam(newStaffMemberData),
     "utf-8"
   );
